@@ -1,4 +1,5 @@
 import csv
+from io import StringIO
 import subprocess
 
 def handle(options):
@@ -10,7 +11,7 @@ def handle(options):
     result = subprocess.check_output(['nikto', '-host', options['host'], '-port', options['port'],
                                       '-Format', 'csv', '-output', '-'])
     results = []
-    csvreader = csv.reader(result, delimiter=',', quotechar='"')
+    csvreader = csv.reader(StringIO(result.decode('ascii')), delimiter=',', quotechar='"')
     for row in csvreader:
         if len(row) > 1:
             results.append({
