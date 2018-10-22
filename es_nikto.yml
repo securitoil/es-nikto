@@ -1,0 +1,14 @@
+provider:
+  name: faas
+  gateway: http://127.0.0.1:8080
+
+functions:
+  es_nikto:
+    lang: es_python3
+    handler: ./es_nikto
+    image: kulinacs/es_nikto:latest
+    environment:
+      read_timeout: 3600s
+      write_timeout: 3600s
+      ELASTIC_INDEX: nikto
+      ELASTIC_TYPE: scan
